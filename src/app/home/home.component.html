@@ -1,0 +1,119 @@
+<div class="container-loading" *ngIf="loading">
+    <div class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<!-- Image and text -->
+<nav class="navbar navbar-dark bg-dark sticky-top" *ngIf="!loading">
+    <a class="navbar-brand">
+        <img [src]="dataQuery.favicon" width="32" height="32" class="d-inline-block align-top" loading="lazy">
+        {{dataDisplay.serverName}}
+    </a>
+    <a class="navbar-brand" href="https://github.com/MrFermz" [ngbTooltip]="version+' alpha'" placement="left">
+        <i class="fab fa-github float-right"></i>
+    </a>
+</nav>
+
+<div class=" container-fluid" *ngIf="!loading">
+    <div class="form-group row" style="padding-top: 15px;">
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <h6 class="card-header">Server Info
+                    <span *ngIf="dataDisplay.connectQuery && dataDisplay.connectPing"
+                        class="badge badge-pill badge-success">Online</span>
+                    <span *ngIf="dataDisplay.connectQuery" (click)="onReloading()" style="cursor: pointer;"
+                        class="badge badge-pill badge-primary float-right" placement="left"
+                        ngbTooltip="Auto every 1 minute">Reload<span *ngIf="dataDisplay.reloading">...</span>
+                    </span>
+                    <span *ngIf="!dataDisplay.connectQuery || !dataDisplay.connectPing"
+                        class="badge badge-pill badge-danger">Offline</span>
+                </h6>
+                <div class="card-body">
+                    <div *ngIf="!dataQuery || dataDisplay.queryError">
+                        <h5 class="card-title">Offline</h5>
+                    </div>
+                    <div *ngIf="dataQuery && !dataDisplay.queryError">
+                        <img *ngIf="dataQuery.favicon" [src]="dataQuery.favicon">
+                        <img *ngIf="!dataQuery.favicon" src="https://via.placeholder.com/64">
+                        <h5 class="card-title mt-3"><strong>{{dataQuery.host}}</strong> [{{dataDisplay.ping}} ms]
+                        </h5>
+                        <h6 class="card-text">version: {{dataQuery.version}}</h6>
+                        <h6 class="card-text">motd: {{dataDisplay.dataMotd}}</h6>
+                        <h6 class="card-text">player: {{dataDisplay.dataPlayerLength}}/{{dataQuery.maxPlayers}}</h6>
+                        <p>
+                            <ngb-progressbar type="info" [animated]="true" [max]="dataQuery.maxPlayers"
+                                [value]="dataDisplay.dataPlayerLength" [striped]="true">
+                            </ngb-progressbar>
+                        </p>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                            data-target="#playerListModal" [disabled]="!dataQuery.samplePlayers">
+                            Players list
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="alert alert-warning" role="alert" *ngIf="!checkVersion()">
+                Console not support in this version.
+            </div>
+            <div class="card" *ngIf="checkVersion()">
+                <h6 class="card-header">Console
+                    <span *ngIf="dataDisplay.connectRcon" class="badge badge-pill badge-success">Online</span>
+                    <span *ngIf="!dataDisplay.connectRcon" class="badge badge-pill badge-danger">Offline</span>
+                </h6>
+                <div class="card-body" id="console" style="overflow: auto; height: 300px; max-height: 300px;">
+                    <ul class="list-group" id="list-console">
+                        <!-- console display -->
+                    </ul>
+                </div>
+            </div>
+            <form (submit)="onSendCommand($event)" *ngIf="checkVersion()">
+                <div class="input-group mt-3">
+                    <input type="text" class="form-control" placeholder=">" aria-label=">"
+                        aria-describedby="button-addon2" (input)="onCammandChange($event.target.value)"
+                        [value]="command">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" id="console-send" (click)="onSendCommand($event)"
+                            style="width: 70px;" [disabled]="dataDisplay.disableSendBtn">
+                            <span *ngIf="!dataDisplay.disableSendBtn">Send</span>
+                            <span *ngIf="dataDisplay.disableSendBtn" class="spinner-border spinner-border-sm"
+                                role="status" aria-hidden="true">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="playerListModal" tabindex="-1" aria-labelledby="playerListModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="playerListModalLabel">Players list</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let item of dataQuery.samplePlayers">
+                        <span>
+                            <img src="{{avatar.baseUrl}}{{item.id}}?size={{avatar.size}}">
+                        </span>
+                        <strong>{{item.name}}</strong>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

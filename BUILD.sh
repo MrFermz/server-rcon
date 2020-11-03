@@ -1,0 +1,1 @@
+ng build --prod --configuration=deploy --base-href /
