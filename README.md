@@ -18,7 +18,7 @@ _**Note :** required start your API._
 
 1. Open `Terminal` or `cmd` in directories to archive project.
 2. Run `git clone https://github.com/MrFermz/server-rcon`
-3. Edit config file in `/environments/environment.deploy.ts`
+3. Edit config file in `src/environments/environment.deploy.ts`
     ``` json
     {
         "serverName": "Your server name",
@@ -27,8 +27,8 @@ _**Note :** required start your API._
             "port": 7000
         }
     }
-4. Save `config.json`
-5. Run `npm install`
+4. Save `environment.deploy.ts`
+5. Run `cd server-rcon/` then `npm install`
 7. Run `BUILD.sh` or `BUILD.bat` if in Windows.
 8. Copy directories in `/dist` folder to your web server.
 9. Have fun.
@@ -38,7 +38,7 @@ _**หมายเหตุ :** ต้องเปิด API ก่อนทุ�
 
 1. เปิด `Terminal` หรือ `cmd` ในโฟล์เดอร์ที่จะเก็บเว็บ
 2. รันคำสั่ง `git clone https://github.com/MrFermz/server-rcon`
-3. แก้ไขไฟล์เพื่อตั้งค่าเซิฟเวอร์ตัวเอง `/environments/environment.deploy.ts`
+3. แก้ไขไฟล์เพื่อตั้งค่าเซิฟเวอร์ตัวเอง `src/environments/environment.deploy.ts`
     ``` json
     {
         "serverName": "ชื่อเซิฟเวอร์",
@@ -47,8 +47,8 @@ _**หมายเหตุ :** ต้องเปิด API ก่อนทุ�
             "port": 7000
         }
     }
-4. บันทึกไฟล์ `config.json`
-5. รันคำสั่ง `npm install`
+4. บันทึกไฟล์ `environment.deploy.ts`
+5. รันคำสั่ง `cd server-rcon/` `npm install`
 7. รันไฟล์ `BUILD.sh` หรือ `BUILD.bat` ถ้าใช้ Windows
 8. Copy ในโฟลเดอร์ `/dist` ไปที่ web server
 9. เสร็จแล้ว
