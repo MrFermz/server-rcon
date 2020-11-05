@@ -1,6 +1,6 @@
 # Minecraft server-rcon
 
-## Structure
+## Structure (Now website)
 ![alt text](/src/assets/api-structure.png)
 
 ## Installation
@@ -10,16 +10,21 @@
 
 >**Optional**
 >[XAMPP >= 7.4.11](https://www.apachefriends.org/)
+>[Git bash >= 2.29.2](https://git-scm.com/downloads)
 
 ## Get started
 ### English
 
 _**Note :** required start your API._
 
-1. Open `Terminal` or `cmd` in directories to archive project.
-2. Run `git clone https://github.com/MrFermz/server-rcon`
+>**Windows**
+`1. Download and unzip`
+
+>**Linux**
+`1. Open Terminal`
+`2. git clone https://github.com/MrFermz/server-rcon`
 3. Edit config file in `src/environments/environment.deploy.ts`
-    ``` json
+``` json
     {
         "serverName": "Your server name",
         "api": {
@@ -27,28 +32,32 @@ _**Note :** required start your API._
             "port": 7000
         }
     }
+```
 4. Save `environment.deploy.ts`
-5. Run `cd server-rcon/` then `npm install`
-7. Run `BUILD.sh` or `BUILD.bat` if in Windows.
-8. Copy directories in `/dist` folder to your web server.
-9. Have fun.
+5. Run `BUILD.sh` or `BUILD.bat` if in Windows.
+6. Copy files in `/dist` to your web server.
+7. Have fun.
 
 ### ภาษาไทย
 _**หมายเหตุ :** ต้องเปิด API ก่อนทุกครั้ง_
 
-1. เปิด `Terminal` หรือ `cmd` ในโฟล์เดอร์ที่จะเก็บเว็บ
-2. รันคำสั่ง `git clone https://github.com/MrFermz/server-rcon`
+>**Windows**
+`1. โหลดมาแล้วแตกไฟล์`
+
+>**Linux**
+`1. เปิด Terminal`
+`2. git clone https://github.com/MrFermz/server-rcon`
 3. แก้ไขไฟล์เพื่อตั้งค่าเซิฟเวอร์ตัวเอง `src/environments/environment.deploy.ts`
-    ``` json
+``` json
     {
         "serverName": "ชื่อเซิฟเวอร์",
         "api": {
-            "host": "IP ของ API",
+            "host": "ip ของ api",
             "port": 7000
         }
     }
-4. บันทึกไฟล์ `environment.deploy.ts`
-5. รันคำสั่ง `cd server-rcon/` `npm install`
-7. รันไฟล์ `BUILD.sh` หรือ `BUILD.bat` ถ้าใช้ Windows
-8. Copy ในโฟลเดอร์ `/dist` ไปที่ web server
-9. เสร็จแล้ว
+```
+4. บันทึก `environment.deploy.ts`
+5. รันไฟล์ `BUILD.sh` หรือ `BUILD.bat` ถ้าใช้ Windows
+6. คัดลอกไฟล์ใน `/dist` ไปใช้งานได้เลย
+7. เสร็จแล้ว
