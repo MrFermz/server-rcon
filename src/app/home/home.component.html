@@ -7,7 +7,10 @@
 <!-- Image and text -->
 <nav class="navbar navbar-dark bg-dark sticky-top" *ngIf="!loading">
     <a class="navbar-brand">
-        <img [src]="dataQuery.favicon" width="32" height="32" class="d-inline-block align-top" loading="lazy">
+        <img *ngIf="dataQuery.favicon" [src]="dataQuery.favicon" width="32" height="32" class="d-inline-block align-top"
+            loading="lazy">
+        <img *ngIf="!dataQuery.favicon" src="https://via.placeholder.com/32" class="d-inline-block align-top"
+            loading="lazy">
         {{dataDisplay.serverName}}
     </a>
     <a class="navbar-brand" href="https://github.com/MrFermz" [ngbTooltip]="version+' alpha'" placement="left">

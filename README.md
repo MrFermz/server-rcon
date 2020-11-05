@@ -1,4 +1,5 @@
 # Minecraft server-rcon
+![alt text](/src/assets/show1.gif)
 
 ## Structure (Now website)
 ![alt text](/src/assets/api-structure.png)
