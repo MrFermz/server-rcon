@@ -5,12 +5,14 @@
 
 ## Installation
 >**Required**
->[Minecraft server-rcon-api](https://github.com/MrFermz/server-rcon-api)
->[Node.js >= 12.19.0](https://nodejs.org/en/download/)
+
+- [Minecraft server-rcon-api](https://github.com/MrFermz/server-rcon-api)
+- [Node.js >= 12.19.0](https://nodejs.org/en/download/)
 
 >**Optional**
->[XAMPP >= 7.4.11](https://www.apachefriends.org/)
->[Git bash >= 2.29.2](https://git-scm.com/downloads)
+
+- [XAMPP >= 7.4.11](https://www.apachefriends.org/)
+- [Git bash >= 2.29.2](https://git-scm.com/downloads)
 
 ## Get started
 ### English
@@ -18,11 +20,11 @@
 _**Note :** required start your API._
 
 >**Windows**
-`1. Download and unzip`
+1. Download and unzip
 
 >**Linux**
-`1. Open Terminal`
-`2. git clone https://github.com/MrFermz/server-rcon`
+1. Open Terminal
+2. git clone https://github.com/MrFermz/server-rcon
 3. Edit config file in `src/environments/environment.deploy.ts`
 ``` json
     {
@@ -42,11 +44,11 @@ _**Note :** required start your API._
 _**หมายเหตุ :** ต้องเปิด API ก่อนทุกครั้ง_
 
 >**Windows**
-`1. โหลดมาแล้วแตกไฟล์`
+1. โหลดมาแล้วแตกไฟล์
 
 >**Linux**
-`1. เปิด Terminal`
-`2. git clone https://github.com/MrFermz/server-rcon`
+1. เปิด Terminal
+2. git clone https://github.com/MrFermz/server-rcon
 3. แก้ไขไฟล์เพื่อตั้งค่าเซิฟเวอร์ตัวเอง `src/environments/environment.deploy.ts`
 ``` json
     {
