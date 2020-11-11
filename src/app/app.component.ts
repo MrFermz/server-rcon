@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { environment as config } from '../environments/environment'
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'server-rcon';
+
+  public constructor(
+    private titleService: Title
+  ) {
+    this.titleService.setTitle(config.serverName)
+  }
 }

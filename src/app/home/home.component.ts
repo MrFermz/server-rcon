@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router'
 import { environment as config } from '../../environments/environment'
 import { HttpService } from '../../services/http.services'
 import { DomSanitizer } from '@angular/platform-browser'
@@ -12,8 +13,12 @@ import * as dayjs from 'dayjs'
 })
 
 export class HomeComponent implements OnInit, AfterViewInit {
+  resultSuccessCode = config.response.successCode
+  resultSuccessDescription = config.response.successDescription
+  resultFailed = config.response.failed
 
-  dataQuery: any = []
+  currentUser: any = ''
+  dataQuery: any = {}
   dataDisplay: any = {
     serverName: config.serverName,
     dataMotd: '',
@@ -34,27 +39,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
   command: any = ''
   version: any = ''
 
-
-  resultSuccessCode = config.response.successCode
-  resultSuccessDescription = config.response.successDescription
-  resultFailed = config.response.failed
-
   constructor(
     private http: HttpService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) { }
 
 
   async ngOnInit() {
-    console.log('ngOnInit')
+    this.currentUser = localStorage.getItem('currentUser')
     this.loading = true
     this.version = config.version
-    this.onServerQuery()
+    if (!this.currentUser) {
+      this.onLogout()
+    } else {
+      this.onServerQuery()
+    }
   }
 
   async ngAfterViewInit() {
     setInterval(async () => {
-      console.log('req')
       this.onServerQuery()
     }, 60000) // every 1 minute
   }
@@ -95,6 +99,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         if (this.dataQuery.favicon) {
           this.dataQuery.favicon = this.bypassBase64(this.dataQuery.favicon)
         }
+        if (this.dataQuery.modInfo) {
+          this.dataQuery.modsLists = _.sortBy(this.dataQuery.modInfo.modList, 'modid')
+        }
+
         this.checkRconConnect()
         this.loading = false
         this.dataDisplay.connectQuery = true
@@ -260,5 +268,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   checkVersion() {
     return config.allowVersion.includes(this.dataQuery.version)
+  }
+
+  openNewTab(url) {
+    window.open(url)
+  }
+
+  onLogout() {
+    this.loading = true
+    setTimeout(() => {
+      localStorage.removeItem('currentUser')
+      this.router.navigate([''])
+      this.loading = false
+    }, 500)
   }
 }

@@ -5,17 +5,25 @@
 </div>
 
 <!-- Image and text -->
-<nav class="navbar navbar-dark bg-dark sticky-top" *ngIf="!loading">
-    <a class="navbar-brand">
-        <img *ngIf="dataQuery.favicon" [src]="dataQuery.favicon" width="32" height="32" class="d-inline-block align-top"
-            loading="lazy">
-        <img *ngIf="!dataQuery.favicon" src="https://via.placeholder.com/32" class="d-inline-block align-top"
-            loading="lazy">
-        {{dataDisplay.serverName}}
-    </a>
-    <a class="navbar-brand" href="https://github.com/MrFermz" [ngbTooltip]="version+' alpha'" placement="left">
-        <i class="fab fa-github float-right"></i>
-    </a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="!loading">
+    <a class="navbar-brand" href="#">{{dataDisplay.serverName}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" style="color: lightgrey;">{{version + ' alpha'}}</li>
+            <li class="nav-item" (click)="openNewTab('https://github.com/MrFermz')" style="cursor: pointer;">
+                <i class="fab fa-github" [ngbTooltip]="version+' alpha'"></i>
+            </li>
+        </ul>
+        <button class="btn btn-danger my-2 my-sm-0" type="button" (click)="onLogout()">
+            <span><i class="fas fa-sign-out-alt"></i></span>
+            Logout
+        </button>
+    </div>
 </nav>
 
 <div class=" container-fluid" *ngIf="!loading">
@@ -50,10 +58,16 @@
                             </ngb-progressbar>
                         </p>
 
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal"
-                            data-target="#playerListModal" [disabled]="!dataQuery.samplePlayers">
+                        <!-- Button trigger modal players -->
+                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#playerListModal"
+                            [disabled]="!dataQuery.samplePlayers">
                             Players list
+                        </button>
+
+                        <!-- Button trigger modal mod list -->
+                        <button *ngIf="dataQuery.modInfo" type="button" class="btn btn-light" data-toggle="modal"
+                            data-target="#modsListModal" [disabled]="!dataQuery.modInfo">
+                            Mods list
                         </button>
                     </div>
                 </div>
@@ -94,9 +108,9 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Players -->
 <div class="modal fade" id="playerListModal" tabindex="-1" aria-labelledby="playerListModal" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="playerListModalLabel">Players list</h5>
@@ -105,12 +119,38 @@
                 </button>
             </div>
             <div class="modal-body">
-                <ul class="list-group">
+                <ul class="list-group list-group-flush">
                     <li class="list-group-item" *ngFor="let item of dataQuery.samplePlayers">
                         <span>
                             <img src="{{avatar.baseUrl}}{{item.id}}?size={{avatar.size}}">
                         </span>
                         <strong>{{item.name}}</strong>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Mod lists -->
+<div class="modal fade" id="modsListModal" tabindex="-1" aria-labelledby="modsListModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modsListModalLabel">Mods list</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                        *ngFor="let item of dataQuery.modsLists; let i = index">
+                        <strong>{{i + 1}}.{{item.modid}}</strong>
+                        <span class="badge badge-pill badge-info">{{item.version}}</span>
                     </li>
                 </ul>
             </div>
